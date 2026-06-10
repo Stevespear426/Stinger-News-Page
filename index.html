@@ -1,134 +1,302 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Stinger News landing page">
-    <meta name="keywords" content="Android, Kotlin, News, RSS">
-    <meta name="author" content="Steve Spear">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-    <title>Stinger News</title>
-
-    <!--add animation: gradient 60s ease infinite; to animation gradient, custom gradient here: https://cssgradient.io/-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stinger News | Unbiased & Private</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-      body {
-        background: rgb(30, 136, 229);
-background: linear-gradient(150deg, rgba(193, 222, 248,1) 0%, rgba(143, 195, 241,1) 21%, rgba(30, 136, 229   ,1) 52%);
-	background-size: 400% 400%;
-}
+        :root {
+            --primary-blue: #003366; 
+            --stinger-gold: #ffcc00; 
+            --bg-light: #ffffff;
+            --text-dark: #333333;
+            --gray-sub: #666666;
+        }
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-blue);
+            padding: 15px 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-flex {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, #f9f9f9 0%, #ffffff 100%);
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 350px;
+            padding-right: 40px;
+        }
+
+        .hero-text h1 {
+            color: var(--primary-blue);
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--gray-sub);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        /* Image Rotator (Phone Mockup) */
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 300px;
+            position: relative;
+            height: 620px; /* Space for the screenshot height */
+        }
+
+        .phone-container {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background: #222;
+            border: 8px solid #222;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .phone-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .phone-container img.active {
+            opacity: 1;
+        }
+
+        /* Store Buttons */
+        .store-btns {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .store-btns img {
+            height: 50px;
+            transition: transform 0.2s;
+        }
+
+        .store-btns a:hover img { transform: scale(1.05); }
+
+        /* Features */
+        .features {
+            padding: 80px 10%;
+            background: #f4f4f4;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 40px;
+            border-top: 6px solid var(--stinger-gold);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-item i {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        .contact-card {
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .contact-link {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-link i { color: var(--stinger-gold); font-size: 1.5rem; }
+
+        footer {
+            background: var(--primary-blue);
+            color: #ffffff99;
+            text-align: center;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero { text-align: center; }
+            .hero-text { padding-right: 0; margin-bottom: 50px; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .store-btns { justify-content: center; }
+            .hero-image { height: 550px; }
+            .phone-container { width: 260px; height: 520px; }
+        }
     </style>
-  </head>
-  <body class="bg-light">
+</head>
+<body>
 
-    <main class="container">
-        <div class="d-flex p-3 text-white my-3 rounded">
-            <div class="row">
+<nav>
+    <div class="logo-flex">
+        <img src="src/img/badges/playstore.png" alt="Stinger Logo" class="logo-img">
+        <span class="brand-name">STINGER NEWS</span>
+    </div>
+</nav>
 
-              <!-- SET YOUR LOGO HERE -->
-                <figure class="figure col-lg-3"><img src="src/img/badges/playstore.png" class="figure-img img-fluid rounded"></figure>
-
-                <div class="col-lg-9">
-
-                    <h1>Stinger News</h1>
-                    <p class="lead">Stay informed without sacrificing your privacy. This news app empowers you to curate your news experience. Browse top headlines or add RSS feeds for in-depth coverage on your specific interests. Unbiased news, your way: No algorithms or ads influencing your feed. Complete privacy: We collect no user data. Download now and take control of your news.</p>
-                    <p><img src="src/img/badges/ios.svg" width="35%"><img onclick="window.location.href='https://play.google.com/store/apps/details?id=com.stingers.freader'" src="src/img/badges/google-play-badge.svg" width="43%"></p>
-
-                </div>
-            </div>
-
+<section class="hero">
+    <div class="hero-text">
+        <h1>Unbiased News.<br>Completely Private.</h1>
+        <p>Take control of your feed. No algorithms, no data tracking. Just the headlines you need, exactly when they happen.</p>
+        
+        <div class="store-btns">
+            <a href="https://play.google.com/store/apps/details?id=com.stingers.freader">
+                <img src="src/img/badges/google-play-badge.svg" alt="Get it on Google Play">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.stingers.freader">
+                <img src="src/img/badges/ios.svg" alt="Download on App Store">
+            </a>
         </div>
+    </div>
 
-        <div id="myCarousel" class="carousel slide my-3 rounded" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#000"/></svg>
-        
-                <div class="container">
-                  <div class="carousel-caption">
-                    <h2>Private</h2>
-                    <p>No user data is gathered or shared with News sources</p>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#000"/></svg>
-        
-                <div class="container">
-                  <div class="carousel-caption">
-                    <h2>Customizable</h2>
-                    <p>Choose sources, themes, and even fonts!</p>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#000"/></svg>
-        
-                <div class="container">
-                  <div class="carousel-caption">
-                    <h2>Beautiful</h2>
-                    <p>Great user experience. Beautiful UI.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-      
-        <div class="my-3 p-3 rounded">
-          <h1 class="pb-2 mb-0 text-white">Screenshots</h1>
-
-          <!-- SET YOUR SCREENSHOTS HERE -->
-          <div class="row align-items-center">
-              <figure class="figure col-lg-3"><img src="src/img/screenshots/1.jpg" class="figure-img img-fluid rounded"></figure>
-              <figure class="figure col-lg-3"><img src="src/img/screenshots/2.jpg" class="figure-img img-fluid rounded"></figure>
-              <figure class="figure col-lg-3"><img src="src/img/screenshots/3.jpg" class="figure-img img-fluid rounded"></figure>
-              <figure class="figure col-lg-3"><img src="src/img/screenshots/4.jpg" class="figure-img img-fluid rounded"></figure>
-          </div>
-
+    <div class="hero-image">
+        <div class="phone-container" id="screenshot-slider">
+            <!-- Images from your repo -->
+            <img src="src/img/screenshots/1.jpg" class="active">
+            <img src="src/img/screenshots/2.jpg">
+            <img src="src/img/screenshots/3.jpg">
+            <img src="src/img/screenshots/4.jpg">
         </div>
+    </div>
+</section>
 
-      </main>
-      
-    <!-- Optional JavaScript; choose one of the two! -->
+<section class="features">
+    <div class="feature-item">
+        <i class="fas fa-shield-halved"></i>
+        <h3>Zero Data Collection</h3>
+        <p>Your privacy is our priority. We don't track your reading habits or sell your data.</p>
+    </div>
+    <div class="feature-item">
+        <i class="fas fa-bolt"></i>
+        <h3>Real-Time Updates</h3>
+        <p>Chronological feeds ensure you see news as it breaks, without algorithmic delay.</p>
+    </div>
+    <div class="feature-item">
+        <i class="fas fa-list-check"></i>
+        <h3>Custom RSS Feeds</h3>
+        <p>Follow specific blogs, niche sites, or local news by adding your own RSS links.</p>
+    </div>
+</section>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
-    -->
-
+<section class="contact-section">
+    <h2>Get in Touch</h2>
+    <p>Questions? Feedback? We'd love to hear from you.</p>
     
+    <div class="contact-card">
+        <a href="mailto:stingersolutionsdev@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i> stingersolutionsdev@gmail.com
+        </a>
+        <a href="tel:4237121499" class="contact-link">
+            <i class="fas fa-phone"></i> 423-712-1499
+        </a>
+    </div>
+</section>
 
-  </body>
+<footer>
+    <p>&copy; 2024 Stinger Solutions. | Jonesborough, TN</p>
+</footer>
+
+<script>
+    // Simple script to rotate images every 3 seconds
+    const images = document.querySelectorAll('#screenshot-slider img');
+    let currentIndex = 0;
+
+    function rotateImages() {
+        // Remove active class from current image
+        images[currentIndex].classList.remove('active');
+        
+        // Move to next index
+        currentIndex = (currentIndex + 1) % images.length;
+        
+        // Add active class to next image
+        images[currentIndex].classList.add('active');
+    }
+
+    setInterval(rotateImages, 3000); // Change image every 3 seconds
+</script>
+
+</body>
 </html>
