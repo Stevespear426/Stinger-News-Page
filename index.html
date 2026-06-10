@@ -25,6 +25,7 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Navigation */
@@ -36,6 +37,8 @@
             justify-content: space-between;
             color: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
         }
 
         .logo-flex {
@@ -57,18 +60,18 @@
 
         /* Hero Section */
         .hero {
-            padding: 60px 10%;
+            padding: 80px 10%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: linear-gradient(180deg, #f9f9f9 0%, #ffffff 100%);
             flex-wrap: wrap;
+            gap: 40px;
         }
 
         .hero-text {
             flex: 1;
-            min-width: 350px;
-            padding-right: 40px;
+            min-width: 400px;
         }
 
         .hero-text h1 {
@@ -85,28 +88,45 @@
             max-width: 500px;
         }
 
-        /* Image Rotator (Phone Mockup) */
-        .hero-image {
+        /* Dual Phone Layout */
+        .hero-image-area {
             flex: 1;
             display: flex;
             justify-content: center;
-            min-width: 300px;
-            position: relative;
-            height: 620px; /* Space for the screenshot height */
+            align-items: center;
+            min-width: 450px;
+            gap: 20px;
+            perspective: 1000px;
         }
 
-        .phone-container {
+        .phone-mockup {
             position: relative;
-            width: 300px;
-            height: 600px;
-            background: #222;
-            border: 8px solid #222;
-            border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            width: 240px;
+            height: 480px;
+            background: #111;
+            border: 10px solid #222;
+            border-radius: 36px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             overflow: hidden;
+            transition: transform 0.3s ease;
         }
 
-        .phone-container img {
+        .phone-android
+        .phone-ios
+
+        .phone-label {
+            position: absolute;
+            bottom: -35px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .phone-mockup img {
             position: absolute;
             top: 0;
             left: 0;
@@ -117,7 +137,7 @@
             transition: opacity 0.8s ease-in-out;
         }
 
-        .phone-container img.active {
+        .phone-mockup img.active {
             opacity: 1;
         }
 
@@ -130,7 +150,7 @@
         }
 
         .store-btns img {
-            height: 50px;
+            height: 48px;
             transition: transform 0.2s;
         }
 
@@ -138,7 +158,7 @@
 
         /* Features */
         .features {
-            padding: 80px 10%;
+            padding: 100px 10%;
             background: #f4f4f4;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -198,13 +218,19 @@
             padding: 40px;
         }
 
-        @media (max-width: 768px) {
-            .hero { text-align: center; }
-            .hero-text { padding-right: 0; margin-bottom: 50px; }
-            .hero-text h1 { font-size: 2.5rem; }
+        @media (max-width: 1024px) {
+            .hero { text-align: center; flex-direction: column; }
+            .hero-text { min-width: 100%; padding: 0; }
+            .hero-text h1 { font-size: 2.8rem; }
             .store-btns { justify-content: center; }
-            .hero-image { height: 550px; }
-            .phone-container { width: 260px; height: 520px; }
+            .hero-image-area { min-width: 100%; padding-bottom: 60px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-image-area { flex-direction: row; gap: 10px; }
+            .phone-mockup { width: 160px; height: 320px; border-width: 6px; }
+            .phone-ios { transform: translateY(20px); }
+            .phone-android { transform: translateY(-10px); }
         }
     </style>
 </head>
@@ -220,50 +246,62 @@
 <section class="hero">
     <div class="hero-text">
         <h1>Unbiased News.<br>Completely Private.</h1>
-        <p>Take control of your feed. No algorithms, no data tracking. Just the headlines you need, exactly when they happen.</p>
+        <p>Your news, your way. No tracking, no hidden agendas, and no algorithms. Just the headlines you choose from the sources you trust.</p>
         
         <div class="store-btns">
-            <a href="https://play.google.com/store/apps/details?id=com.stingers.freader">
+            <!-- Google Play Store -->
+            <a href="https://play.google.com/store/apps/details?id=com.and96.stinger_news">
                 <img src="src/img/badges/google-play-badge.svg" alt="Get it on Google Play">
             </a>
-            <a href="https://play.google.com/store/apps/details?id=com.stingers.freader">
+            <!-- Apple App Store (Placeholder) -->
+            <a href="https://play.google.com/store/apps/details?id=com.and96.stinger_news">
                 <img src="src/img/badges/ios.svg" alt="Download on App Store">
             </a>
         </div>
     </div>
 
-    <div class="hero-image">
-        <div class="phone-container" id="screenshot-slider">
-            <!-- Images from your repo -->
+    <div class="hero-image-area">
+        <!-- Android Phone -->
+        <div class="phone-mockup phone-android" id="android-slider">
             <img src="src/img/screenshots/1.jpg" class="active">
             <img src="src/img/screenshots/2.jpg">
             <img src="src/img/screenshots/3.jpg">
             <img src="src/img/screenshots/4.jpg">
+            <div class="phone-label">Android</div>
+        </div>
+
+        <!-- iOS Phone -->
+        <div class="phone-mockup phone-ios" id="ios-slider">
+            <img src="src/img/screenshots/1.jpg" class="active">
+            <img src="src/img/screenshots/2.jpg">
+            <img src="src/img/screenshots/3.jpg">
+            <img src="src/img/screenshots/4.jpg">
+            <div class="phone-label">iOS</div>
         </div>
     </div>
 </section>
 
 <section class="features">
     <div class="feature-item">
-        <i class="fas fa-shield-halved"></i>
-        <h3>Zero Data Collection</h3>
-        <p>Your privacy is our priority. We don't track your reading habits or sell your data.</p>
+        <i class="fas fa-user-shield"></i>
+        <h3>Privacy First</h3>
+        <p>We don't track you. No user profiles, no data harvesting. Your history stays on your device.</p>
     </div>
     <div class="feature-item">
-        <i class="fas fa-bolt"></i>
-        <h3>Real-Time Updates</h3>
-        <p>Chronological feeds ensure you see news as it breaks, without algorithmic delay.</p>
+        <i class="fas fa-filter-circle-xmark"></i>
+        <h3>No Algorithms</h3>
+        <p>Tired of being told what to read? We deliver news in chronological order without bias.</p>
     </div>
     <div class="feature-item">
-        <i class="fas fa-list-check"></i>
-        <h3>Custom RSS Feeds</h3>
-        <p>Follow specific blogs, niche sites, or local news by adding your own RSS links.</p>
+        <i class="fas fa-rss"></i>
+        <h3>Full Control</h3>
+        <p>Integrate your favorite RSS feeds to build a custom news hub tailored to your specific interests.</p>
     </div>
 </section>
 
 <section class="contact-section">
-    <h2>Get in Touch</h2>
-    <p>Questions? Feedback? We'd love to hear from you.</p>
+    <h2>Questions or Support?</h2>
+    <p>Contact the Stinger Solutions development team.</p>
     
     <div class="contact-card">
         <a href="mailto:stingersolutionsdev@gmail.com" class="contact-link">
@@ -280,22 +318,20 @@
 </footer>
 
 <script>
-    // Simple script to rotate images every 3 seconds
-    const images = document.querySelectorAll('#screenshot-slider img');
-    let currentIndex = 0;
+    function createSlider(containerId, interval) {
+        const images = document.querySelectorAll(`#${containerId} img`);
+        let currentIndex = 0;
 
-    function rotateImages() {
-        // Remove active class from current image
-        images[currentIndex].classList.remove('active');
-        
-        // Move to next index
-        currentIndex = (currentIndex + 1) % images.length;
-        
-        // Add active class to next image
-        images[currentIndex].classList.add('active');
+        setInterval(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }, interval);
     }
 
-    setInterval(rotateImages, 3000); // Change image every 3 seconds
+    // Initialize both sliders with slightly different timings for a natural look
+    createSlider('android-slider', 3000); 
+    createSlider('ios-slider', 3500); 
 </script>
 
 </body>
